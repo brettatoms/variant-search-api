@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
@@ -6,8 +8,10 @@ from .views import router
 
 origins = [
     "http://localhost:3000",
-    # TODO: add hosts
 ]
+
+if "APP_ORIGIN" in os.environ:
+    origins.append(os.environ["APP_ORIGIN"])
 
 app = FastAPI()
 
